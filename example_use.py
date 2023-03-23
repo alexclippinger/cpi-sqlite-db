@@ -22,5 +22,5 @@ def main(db_file):
 
 
 if __name__ == '__main__':
-    db_file = os.path.join('C:/', 'Users', 'Alex', 'Desktop', 'kaggle', 'cps-db', 'sqlite-test.db') 
+    db_file = 'cpi-u.db' 
     main(db_file)
