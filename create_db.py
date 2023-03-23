@@ -1,7 +1,6 @@
 #!/usr/bin/python
 
 import sqlite3
-import os
 
 
 def create_sqlite_connection(db_file: str) -> sqlite3.Connection:
