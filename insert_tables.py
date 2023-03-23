@@ -3,7 +3,6 @@
 import sqlite3
 import urllib.request
 import pandas as pd
-import os
 from io import StringIO
 
 def read_text_from_url(url: str) -> str:
@@ -120,7 +119,7 @@ def insert_data_table(conn: sqlite3.Connection, url: str, table_name: str, data_
         separator (str): Separator character used in the data file.
 
     Returns:
-        Inserts data to the specified SQLite database table and prints the number of records inserted to the console.
+        Inserts data to the specified SQLite database table.
     """
     try:
         text = read_text_from_url(url)
@@ -128,10 +127,7 @@ def insert_data_table(conn: sqlite3.Connection, url: str, table_name: str, data_
             data = text_to_df(text, separator=separator)
             data = get_data_cols(data)
             data = arrange_data_cols(data, data_cols)
-            rows = data.to_sql(table_name, conn, if_exists='append', index=False)
-            if not rows:
-                rows = 0
-            print(f"Inserted {rows} records to the table.")
+            data.to_sql(table_name, conn, if_exists='append', index=False)
         else:
             print("Unable to read text file from URL.")
     except Exception as e:
@@ -162,7 +158,7 @@ def create_view(conn: sqlite3.Connection) -> None:
         print(f"Created view with {rows} records.")
 
 
-def main(db_file):
+def update_db(db_file):
     base_url = 'https://download.bls.gov/pub/time.series/cu/'
     area_codes = 'cu.area'
     item_codes = 'cu.item'
@@ -179,6 +175,7 @@ def main(db_file):
         create_view(conn)
         conn.close()
 
+
 if __name__ == '__main__':
-    db_file = os.path.join('C:/', 'Users', 'Alex', 'Desktop', 'kaggle', 'cps-db', 'sqlite-test.db')  
-    main(db_file)
+    update_db('cpi-u.db')
+    
