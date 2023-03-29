@@ -177,5 +177,5 @@ def update_db(db_file):
 
 
 if __name__ == '__main__':
-    update_db('cpi-u.db')
+    update_db(os.environ['DATABASE_URL'])
     
