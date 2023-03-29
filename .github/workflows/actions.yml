@@ -7,6 +7,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-20.04
+    env:
+      DATABASE_URL: 'file:///c:/Users/Alex/Desktop/Kaggle/cps-sqlite-db/cpi-u.db'
     steps:
       - name: checkout repo content
         uses: actions/checkout@v3
@@ -22,4 +24,4 @@ jobs:
           pip install -r requirements.txt
         
       - name: execute py script
-        run: python insert_tables.py
+        run: python insert_tables.py ${{ env.DATABASE_URL }}
